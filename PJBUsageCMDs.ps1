@@ -53,10 +53,10 @@ Write-Host $usersfiltered
 
 # Search lists all users; search by any user profile property, including custom-defined
 # properties, and id, status, created, activated, status changed and last updated.
-<# $pagesearched = Get-OktaUsers -search 'profile.department eq "Marketing"'
+$pagesearched = Get-OktaUsers -search 'profile.department eq "Marketing"'
 $userssearched = $pagesearched.objects # see pagination above.
 Write-Host $pagesearched
-Write-Host $userssearched #>
+Write-Host $userssearched
 
 #Adding users to Okta org with a for loop
 for ($i=0; $i -lt 5; $i++)
@@ -67,7 +67,7 @@ for ($i=0; $i -lt 5; $i++)
     Write-Host addedTBD
 }
 
-#Get-OktaUsers(<#$q, $filter, $limit = 200, $url = "/api/v1/users?q=$q&filter=$filter&limit=$limit&search=$search", $search#>)
+#Get-OktaUsers($q, $filter, $limit = 200, $url = "/api/v1/users?q=$q&filter=$filter&limit=$limit&search=$search", $search)
 #Lists users from a certain username
 $usersListed = Get-OktaUsers ($q = "cm@the-sopranos.com")
 $usersListed.response.Content
@@ -111,7 +111,7 @@ function Get-MfaUsers() {
 #Get the users who have push enabled as an active MFA factor.
 Get-MfaUsers | Where-Object {$_.push_status -eq "ACTIVE"}
 
-#Create dummy users for your org. Just input the # of users you'd like to create.
+#Create dummy users for your org. Just input the number of users you'd like to create.
 function New-Users($numUsers) {
     $now = Get-Date -Format "yyyyMMddHHmmss"
     for ($i = 1; $i -le $numUsers; $i++) {
